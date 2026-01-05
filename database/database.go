@@ -6,5 +6,8 @@ type Database interface {
 	DeviceTokenByKey(key string) (string, error)            //Get specified device's token
 	SaveDeviceTokenByKey(key, token string) (string, error) //Create or update specified devices's token
 	DeleteDeviceByKey(key string) error                     //Delete specified device
+	GetDeviceKeyByToken(token string) (string, error)       //Get device key by token
+	SaveQiuQiuMessage(msg interface{}) error                //Save QiuQiu message to database
+	GetQiuQiuMessages(token string) ([]interface{}, error)  //Get QiuQiu messages by device token
 	Close() error                                           //Close the database
 }

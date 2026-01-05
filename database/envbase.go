@@ -34,6 +34,21 @@ func (d *EnvBase) DeleteDeviceByKey(key string) error {
 	return fmt.Errorf("not supported")
 }
 
+func (d *EnvBase) GetDeviceKeyByToken(token string) (string, error) {
+	if token == os.Getenv("BARK_DEVICE_TOKEN") {
+		return os.Getenv("BARK_KEY"), nil
+	}
+	return "", fmt.Errorf("token not found")
+}
+
+func (d *EnvBase) SaveQiuQiuMessage(msg interface{}) error {
+	return fmt.Errorf("not supported")
+}
+
+func (d *EnvBase) GetQiuQiuMessages(token string) ([]interface{}, error) {
+	return nil, fmt.Errorf("not supported")
+}
+
 func (d *EnvBase) Close() error {
 	return nil
 }

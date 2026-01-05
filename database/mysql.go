@@ -130,6 +130,29 @@ func (d *MySQL) DeleteDeviceByKey(key string) error {
 	return err
 }
 
+func (d *MySQL) GetDeviceKeyByToken(token string) (string, error) {
+	var key string
+	err := mysqlDB.QueryRow("SELECT `key` FROM `devices` WHERE `token`=?", token).Scan(&key)
+	if err != nil {
+		return "", err
+	}
+	return key, nil
+}
+
+func (d *MySQL) SaveQiuQiuMessage(msg interface{}) error {
+	// MySQL implementation would require a qiuqiu_messages table
+	// For now, we'll keep this as a placeholder
+	// TODO: Implement message storage in MySQL
+	return nil
+}
+
+func (d *MySQL) GetQiuQiuMessages(token string) ([]interface{}, error) {
+	// MySQL implementation would query qiuqiu_messages table
+	// For now, return empty list
+	// TODO: Implement message retrieval from MySQL
+	return []interface{}{}, nil
+}
+
 func (d *MySQL) Close() error {
 	return mysqlDB.Close()
 }

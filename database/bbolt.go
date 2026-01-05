@@ -119,10 +119,18 @@ func bboltSetup(dataDir string) {
 		}
 		err = bboltDB.Update(func(tx *bbolt.Tx) error {
 			_, err := tx.CreateBucketIfNotExists([]byte(bucketName))
+			if err != nil {
+				return err
+			}
+			_, err = tx.CreateBucketIfNotExists([]byte(deviceTokenBucket))
+			if err != nil {
+				return err
+			}
+			_, err = tx.CreateBucketIfNotExists([]byte(qiuqiuMessagesBucket))
 			return err
 		})
 		if err != nil {
-			logger.Fatalf("failed to create database bucket: %v", err)
+			logger.Fatalf("failed to create database buckets: %v", err)
 		}
 		db = bboltDB
 	})

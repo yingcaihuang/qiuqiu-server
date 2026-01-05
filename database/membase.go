@@ -45,6 +45,23 @@ func (d *MemBase) DeleteDeviceByKey(key string) error {
 	return nil
 }
 
+func (d *MemBase) GetDeviceKeyByToken(token string) (string, error) {
+	if cacheDeviceToken == token {
+		return cacheKey, nil
+	}
+	return "", fmt.Errorf("token not found")
+}
+
+func (d *MemBase) SaveQiuQiuMessage(msg interface{}) error {
+	// In-memory implementation doesn't persist messages
+	return nil
+}
+
+func (d *MemBase) GetQiuQiuMessages(token string) ([]interface{}, error) {
+	// Return empty message list for in-memory implementation
+	return []interface{}{}, nil
+}
+
 func (d *MemBase) Close() error {
 	return nil
 }

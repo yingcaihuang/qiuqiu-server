@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  qiuqiu-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      - BARK_ADDR=0.0.0.0:8080
+      - BARK_DATA=/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - qiuqiu-network
+
+networks:
+  qiuqiu-network:
+    driver: bridge
